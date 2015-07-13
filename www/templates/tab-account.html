@@ -1,9 +1,17 @@
 <ion-view view-title="Account">
   <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
+    <form novalidate class="simple-form">
+      <div class="list list-inset">
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="text" ng-model="email" name="email" placeholder="Email Address">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="text" ng-model="password" name="password" placeholder="Password">
+        </label>
+        <input type="submit" ng-click="login()" value="Save" />
+      </div>
+    </form>
   </ion-content>
 </ion-view>
