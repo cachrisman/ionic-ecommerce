@@ -16,7 +16,7 @@ angular.module('ionic-ecommerce.controllers', [])
       $scope.products = response.products;
     },
     function(rejection) {
-      console.log("ProductsCtrl Products.all error: " + rejection);
+      console.log("ProductsCtrl Products.all error: " + rejection.error);
     });
 })
 
@@ -33,22 +33,23 @@ angular.module('ionic-ecommerce.controllers', [])
 
 .controller('CartCtrl', function($scope, $stateParams, Products) {})
 
-.controller('AccountCtrl', function($scope, UserService) {
-    $scope.setToken = function(token) {
-      UserService.set(token);
-    };
-    $scope.token = UserService.current_user();
-    // $scope.login = function() {
-    //   LoginService.loginUser($scope.data.username, $scope.data.password)
-    //     .success(function(data) {
-    //       console.log(data);
-    //       $state.go('tab.account');
-    //     }).error(function(data) {
-    //       console.log(data);
-    //       var alertPopup = $ionicPopup.alert({
-    //         title: 'Login failed!',
-    //         template: 'Please check your credentials!'
-    //       });
-    //     });
-    // };
-  });
+.controller('AccountCtrl', function($scope, UserService) {})
+
+.controller('LoginCtrl', function($scope, $state, $ionicPopup, UserService, LoginService) {
+  $scope.user = {};
+  $scope.login = function() {
+    LoginService.loginUser($scope.user.email, $scope.user.password)
+      .success(function(data) {
+        console.log(data);
+        $state.go('tab.account');
+      })
+      .error(function(data) {
+        console.log(data);
+        var alertPopup = $ionicPopup.alert({
+          title: 'Login failed!',
+          template: 'Please check your credentials!'
+        });
+      });
+  };
+
+});

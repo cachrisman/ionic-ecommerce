@@ -2,12 +2,13 @@ angular.module('ionic-ecommerce.services', [])
 
 .factory('LoginService', function($http, $q) {
   var LoginService = {};
-  var endpoint = "http://localhost:3000/api/login";
-  LoginService.loginUser = function(name, password) {
+  var endpoint = "http://localhost:3000/api/login.json";
+  LoginService.loginUser = function(email, password) {
     var deferred = $q.defer();
     var promise = deferred.promise;
+    var params = { email: email, password: password };
     $http
-      .post(endpoint, { params: { user: name, password: password }})
+      .post(endpoint, params)
       .success(function(response) { deferred.resolve(response); })
       .error(function(rejection) { deferred.reject(rejection); });
 
@@ -36,7 +37,6 @@ angular.module('ionic-ecommerce.services', [])
 })
 
 .factory('Products', function($http, $q, UserService) {
-  // var endpoint = "/js/products.json"
   var endpoint = "http://localhost:3000/api/products";
   var ProductService = {};
   ProductService.all = function() {
