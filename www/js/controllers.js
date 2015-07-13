@@ -1,8 +1,8 @@
-angular.module('starter.controllers', [])
+angular.module('ionic-ecommerce.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('HomeCtrl', function($scope) {})
 
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('ProductsCtrl', function($scope, Products) {
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
@@ -10,19 +10,45 @@ angular.module('starter.controllers', [])
   //
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-  
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
+
+  Products.all().then(
+    function(response) {
+      $scope.products = response.products;
+    },
+    function(rejection) {
+      console.log("ProductsCtrl Products.all error: " + rejection);
+    });
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('ProductDetailCtrl', function($scope, $stateParams, Products) {
+  var id = $stateParams.productId;
+  Products.get(id).then(
+    function(response) {
+      $scope.product = response;
+    },
+    function(rejection) {
+      console.log("ProductDetailCtrl Products.get error: " + rejection);
+    });
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});
+.controller('CartCtrl', function($scope, $stateParams, Products) {})
+
+.controller('AccountCtrl', function($scope, UserService) {
+    $scope.setToken = function(token) {
+      UserService.set(token);
+    };
+    $scope.token = UserService.current_user();
+    // $scope.login = function() {
+    //   LoginService.loginUser($scope.data.username, $scope.data.password)
+    //     .success(function(data) {
+    //       console.log(data);
+    //       $state.go('tab.account');
+    //     }).error(function(data) {
+    //       console.log(data);
+    //       var alertPopup = $ionicPopup.alert({
+    //         title: 'Login failed!',
+    //         template: 'Please check your credentials!'
+    //       });
+    //     });
+    // };
+  });
