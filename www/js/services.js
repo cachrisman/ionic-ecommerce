@@ -1,7 +1,4 @@
-angular.module('ionic-ecommerce.services', [])
-
-.service('AuthService', function($q, $http) {
-
+var AuthService = function($q, $http) {
   var LOCAL_TOKEN_KEY = 'ionic-ecommerce-api-key';
   var isAuthenticated = false;
   var authToken;
@@ -46,12 +43,12 @@ angular.module('ionic-ecommerce.services', [])
       })
       .error(function(rejection) { deferred.reject(rejection); });
 
-    promise.success = function (fn) {
-      promise.then(fn);
+    promise.success = function (callback) {
+      promise.then(callback);
       return promise;
     };
-    promise.error = function (fn) {
-      promise.then(null, fn);
+    promise.error = function (callback) {
+      promise.then(null, callback);
       return promise;
     };
     return promise;
@@ -69,43 +66,62 @@ angular.module('ionic-ecommerce.services', [])
     token: function() {return authToken;},
     isAuthenticated: function() {return isAuthenticated;}
   };
-})
+};
 
-.factory('Products', function($http, $q, AuthService) {
+AuthService.$inject = ['$q', '$http'];
+
+var ProductService = function($http, $q, AuthService) {
   var endpoint = "http://localhost:3000/api/products";
-  var Products = {};
-  Products.all = function() {
-    // console.log("Products.all()", AuthService.token);
-    var deferred = $q.defer();
-    $http
-      .get(endpoint, {
-        headers: {
-          "X-Spree-Token": AuthService.token
-        }
-      })
-      .success(function(response) {
-        deferred.resolve(response);
-      })
-      .error(function(rejection) {
-        deferred.reject(rejection);
-      });
-    return deferred.promise;
+  var ProductService = {};
+  ProductService.cache = {};
+  ProductService.all = function(refresh) {
+    refresh = typeof refresh !== 'undefined' ? refresh : false;
+    if (ProductService.cache.all === undefined || refresh) {
+      var deferred = $q.defer();
+      $http
+        .get(endpoint, {
+          headers: {
+            "X-Spree-Token": AuthService.token
+          }
+        })
+        .success(function(response) {
+          deferred.resolve(response);
+        })
+        .error(function(rejection) {
+          deferred.reject(rejection);
+        });
+      return deferred.promise;
+    } else {
+      return ProductService.cache.all;
+    }
   };
-  Products.get = function(id) {
-    var deferred = $q.defer();
-    $http
-      .get(endpoint + "/" + id, {
-        headers: {
-          "X-Spree-Token": AuthService.token
-        }
-      })
-      .success(function(response) {
-        deferred.resolve(response);
-      })
-      .error(function(rejection) {
-        deferred.reject(rejection);
-      });
-    return deferred.promise;
+  ProductService.get = function(id, refresh) {
+    refresh = typeof refresh !== 'undefined' ? refresh : false;
+    if (ProductService.cache[id] === undefined || refresh) {
+      var deferred = $q.defer();
+      $http
+        .get(endpoint + "/" + id, {
+          headers: {
+            "X-Spree-Token": AuthService.token
+          }
+        })
+        .success(function(response) {
+          ProductService.cache[id] = response;
+          deferred.resolve(response);
+        })
+        .error(function(rejection) {
+          deferred.reject(rejection);
+        });
+      return deferred.promise;
+    } else {
+      return ProductService.cache[id];
+    }
   };
-  return Products;
-});
+  return ProductService;
+};
+
+ProductService.$inject = ['$http', '$q', 'AuthService'];
+
+angular.module('ionic-ecommerce.services', [])
+.service('AuthService', AuthService)
+.factory('ProductService', ProductService);

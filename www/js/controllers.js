@@ -1,44 +1,49 @@
-angular.module('ionic-ecommerce.controllers', [])
+// Home Controller
+var HomeCtrl = function($scope) {};
 
-.controller('HomeCtrl', function( $scope) {})
+HomeCtrl.$inject = ['$scope'];
 
-.controller('ProductsCtrl', function($scope, Products) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+//Products Controller
+var ProductsCtrl = function($scope, ProductService) {
+  $scope.products = function () {
+    ProductService.all()
+    .then(function(response) {
+        return response.products;
+      },
+      function(rejection) {
+        console.log("ProductsCtrl Products.all error: " + rejection.error);
+      });
+  };
+};
 
-  Products.all().then(
-    function(response) {
-      $scope.products = response.products;
-    },
-    function(rejection) {
-      console.log("ProductsCtrl Products.all error: " + rejection.error);
-    });
-})
+ProductsCtrl.$inject = ['$scope', 'ProductService'];
 
-.controller('ProductDetailCtrl', function($scope, $stateParams, Products) {
+// Product Detail Controller
+var ProductDetailCtrl = function($scope, $stateParams, ProductService) {
   var id = $stateParams.productId;
-  Products.get(id).then(
-    function(response) {
-      $scope.product = response;
-    },
-    function(rejection) {
-      console.log("ProductDetailCtrl Products.get error: " + rejection);
-    });
-})
+  $scope.product = function(id) {
+    ProductService.get(id).then(
+      function(response) {
+        return response;
+      },
+      function(rejection) {
+        console.log("ProductDetailCtrl Products.get error: " + rejection.error);
+      })();
+  };
+};
 
-.controller('CartCtrl', function($scope, $stateParams, Products) {})
+ProductDetailCtrl.$inject = ['$scope', '$stateParams', 'ProductService'];
 
-.controller('AccountCtrl', function($scope, $state, AuthService) {
+// Cart Controller
+var CartCtrl = function($scope, $stateParams) {};
+
+CartCtrl.$inject = ['$scope', '$stateParams'];
+
+// Account Controller
+var AccountCtrl = function($scope, $state, AuthService) {
   $scope.$on('$ionicView.enter', function(e) {
     $scope.logged_in = AuthService.isAuthenticated();
-    console.log("logged in: ", $scope.logged_in ? "true" : "false" );
     $scope.token = AuthService.token();
-    console.log("$scope.token: ", $scope.token);
   });
 
   $scope.logout = function(){
@@ -46,21 +51,20 @@ angular.module('ionic-ecommerce.controllers', [])
     $scope.user = {};
     $scope.token = null;
     $scope.logged_in = AuthService.isAuthenticated();
-    // $state.go('tab.account', {}, {reload: true});
     $state.reload('tab.account');
   };
-})
+};
 
-.controller('LoginCtrl', function($scope, $state, $ionicPopup, AuthService) {
+AccountCtrl.$inject = ['$scope', '$state', 'AuthService'];
+
+// Login Controller
+var LoginCtrl = function($scope, $state, $ionicPopup, AuthService) {
   $scope.login = function(user) {
     AuthService.login(user.email, user.password)
       .success(function(data) {
         $scope.user = {};
-        // $scope.logged_in = AuthService.isAuthenticated();
-        // $scope.token = data.token;
         console.log("successful login; token: " + data.token);
         $state.go('tab.account', {}, {reload: true});
-        // $state.reload('tab.account');
       })
       .error(function(data) {
         console.log("login failed", data.error);
@@ -70,4 +74,14 @@ angular.module('ionic-ecommerce.controllers', [])
         });
       });
   };
-});
+};
+
+LoginCtrl.$inject = ['$scope', '$state', '$ionicPopup', 'AuthService'];
+
+angular.module('ionic-ecommerce.controllers', [])
+.controller('HomeCtrl', HomeCtrl)
+.controller('ProductsCtrl', ProductsCtrl)
+.controller('ProductDetailCtrl', ProductDetailCtrl)
+.controller('CartCtrl', CartCtrl)
+.controller('AccountCtrl', AccountCtrl)
+.controller('LoginCtrl', LoginCtrl);
