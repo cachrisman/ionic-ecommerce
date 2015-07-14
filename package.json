@@ -2,12 +2,20 @@
   "name": "ionic-ecommerce",
   "version": "1.0.0",
   "description": "ionic-ecommerce: An Ionic project",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cachrisman/ionic-ecommerce.git"
+  },
   "dependencies": {
-    "gulp": "^3.5.6",
+    "bower": "^1.4.1",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify-css": "^0.3.13",
+    "gulp-rename": "^1.2.2",
     "gulp-sass": "^1.3.3",
-    "gulp-concat": "^2.2.0",
-    "gulp-minify-css": "^0.3.0",
-    "gulp-rename": "^1.2.0"
+    "gulp-util": "^3.0.6",
+    "npm-util": "0.0.2",
+    "shelljs": "^0.5.1"
   },
   "devDependencies": {
     "bower": "^1.3.3",
@@ -23,5 +31,16 @@
   ],
   "cordovaPlatforms": [
     "ios"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/cachrisman/ionic-ecommerce/issues"
+  },
+  "homepage": "https://github.com/cachrisman/ionic-ecommerce",
+  "readme": "https://github.com/cachrisman/ionic-ecommerce#readme",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Charlie Chrisman",
+  "license": "ISC"
 }
