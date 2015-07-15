@@ -1,16 +1,16 @@
-<ion-view view-title="Account">
+<ion-view view-title="Login">
   <ion-content>
     <form novalidate class="simple-form">
       <div class="list list-inset">
         <label class="item item-input">
           <span class="input-label">Email</span>
-          <input type="text" ng-model="user.email" name="email" placeholder="Email Address">
+          <input type="text" ng-model="login.user.email" name="email" placeholder="Email Address">
         </label>
         <label class="item item-input">
           <span class="input-label">Password</span>
-          <input type="password" ng-model="user.password" name="password" placeholder="Password">
+          <input type="password" ng-model="login.user.password" name="password" placeholder="Password">
         </label>
-        <input class="button button-block button-positive" type="submit" ng-click="login(user)" value="Login" />
+        <input class="button button-block button-positive" type="submit" ng-click="login.go(login.user)" value="Login" />
       </div>
     </form>
   </ion-content>
