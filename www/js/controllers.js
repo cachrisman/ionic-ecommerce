@@ -11,12 +11,14 @@ HomeCtrl.$inject = [];
 function HomeCtrl() {}
 
 //Products Controller
-ProductsCtrl.$inject = ['$scope', 'ProductService'];
-function ProductsCtrl($scope, ProductService) {
+ProductsCtrl.$inject = ['$scope', '$ionicLoading', 'ProductService'];
+function ProductsCtrl($scope, $ionicLoading, ProductService) {
   var vm = this;
+  $ionicLoading.show();
   ProductService.all()
   .then(function(response) {
       vm.all = response.products;
+      $ionicLoading.hide();
     },
     function(rejection) {
       console.log("ProductsCtrl Products.all error: " + rejection.error);
@@ -24,12 +26,13 @@ function ProductsCtrl($scope, ProductService) {
 }
 
 // Product Detail Controller
-ProductDetailCtrl.$inject = ['$scope', '$stateParams', 'ProductService', 'CartService'];
-function ProductDetailCtrl($scope, $stateParams, ProductService, CartService) {
+ProductDetailCtrl.$inject = ['$scope', '$stateParams', '$ionicLoading', 'ProductService', 'CartService'];
+function ProductDetailCtrl($scope, $stateParams, $ionicLoading, ProductService, CartService) {
   var vm = this;
   var id = $stateParams.productId;
-  vm.add = add;
+  vm.addToCart = addToCart;
 
+  $ionicLoading.show();
   ProductService.get(id)
   .then(function(response) {
       vm.name = response.name;
@@ -37,13 +40,13 @@ function ProductDetailCtrl($scope, $stateParams, ProductService, CartService) {
       vm.description = response.description;
       vm.image = response.master.images[0].product_url;
       vm.product = response;
-      console.log(vm.product);
+      $ionicLoading.hide();
     },
     function(rejection) {
       console.log("ProductDetailCtrl Products.get error: " + rejection.error);
     });
 
-  function add(product) {
+  function addToCart(product) {
     CartService.add(product);
   }
 }
@@ -52,7 +55,7 @@ function ProductDetailCtrl($scope, $stateParams, ProductService, CartService) {
 CartCtrl.$inject = ['$scope', '$stateParams', 'CartService'];
 function CartCtrl($scope, $stateParams, CartService) {
   var vm = this;
-  vm.cart = CartService.products;
+  vm.products = CartService.products;
   vm.remove = remove;
 
   function remove(product) {
@@ -89,7 +92,6 @@ function LoginCtrl($scope, $state, $ionicPopup, AuthService) {
 
   function go(user) {
     vm.user = null;
-    console.log("hit login function");
     AuthService.login(user.email, user.password)
       .success(function(data) {
         console.log("successful login; token: " + data.token);
