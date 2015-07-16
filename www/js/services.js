@@ -128,12 +128,7 @@ function CartService($http, $q, ProductService) {
   }
 
   function remove(product) {
-    console.log("remove product: ", product);
-    service.cart = service.cart.filter(function (el) {
-                        return el !== product;
-                       });
-    $state.reload();
-    console.log("service.cart: ", service.cart);
+    service.cart = service.cart.filter(function (el) { return el !== product; });
   }
 
   function count() {
