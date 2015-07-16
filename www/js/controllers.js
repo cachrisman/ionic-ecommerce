@@ -95,8 +95,15 @@ function ProductDetailCtrl(   $stateParams,   $state,   $ionicLoading,   $ionicP
 CartCtrl.$inject = ['$scope', 'CartService', 'CONFIG'];
 function CartCtrl(   $scope,   CartService,   CONFIG) {
   var vm = this;
-  vm.products = CartService.products;
   vm.remove = remove;
+
+  $scope.$on('$ionicView.enter', function(e) {
+    vm.products = CartService.products();
+    for (var key in vm.products) {
+      var product = vm.products[key];
+      product.image = CONFIG.image_root + product.master.images[0].mini_url;
+    }
+  });
 
   function remove(product) {
     CartService.remove(product);
