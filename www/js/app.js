@@ -24,29 +24,34 @@ function Configurator($httpProvider, $stateProvider, $urlRouterProvider) {
   $httpProvider.defaults.headers.common["X-CSRF-Token"] = $("meta[name=csrf-token]").attr("content");
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
 
+  $urlRouterProvider.otherwise('/');
+
   $stateProvider
 
-  .state('tab', {
-    url: "/tab",
+  .state('app', {
+    url: '',
     abstract: true,
-    templateUrl: "templates/tabs.html"
+    templateUrl: 'templates/tabs.html',
+    controller: 'TabCtrl as tabs'
   })
 
-  .state('tab.home', {
-    url: '/home',
+  .state('home', {
+    url: '/',
+    parent: 'app',
     views: {
-      'tab-home': {
-        templateUrl: 'templates/tab-home.html',
+      'home': {
+        templateUrl: 'templates/home.html',
         controller: 'HomeCtrl as home'
       }
     }
   })
 
-  .state('tab.products', {
+  .state('products', {
     url: '/products',
+    parent: 'app',
     views: {
-      'tab-products': {
-        templateUrl: 'templates/tab-products.html',
+      'products': {
+        templateUrl: 'templates/products.html',
         controller: 'ProductsCtrl as products'
       }
     }
@@ -54,43 +59,45 @@ function Configurator($httpProvider, $stateProvider, $urlRouterProvider) {
 
   .state('tab.product-detail', {
     url: '/products/:productId',
+    parent: 'app',
     views: {
-      'tab-products': {
-        templateUrl: 'templates/product-detail.html',
+      'products': {
+        templateUrl: 'templates/products.detail.html',
         controller: 'ProductDetailCtrl as product'
       }
     }
   })
 
-  .state('tab.cart', {
+  .state('cart', {
     url: '/cart',
+    parent: 'app',
     views: {
-      'tab-cart': {
-        templateUrl: 'templates/tab-cart.html',
+      'cart': {
+        templateUrl: 'templates/cart.html',
         controller: 'CartCtrl as cart'
       }
     }
   })
 
-  .state('tab.account', {
+  .state('account', {
     url: '/account',
+    parent: 'app',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
+      'account': {
+        templateUrl: 'templates/account.html',
         controller: 'AccountCtrl as account'
       }
     }
   })
 
-  .state('tab.login', {
-    url: '/login',
+  .state('login', {
+    url: '/account/login',
+    parent: 'app',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-login.html',
+      'account': {
+        templateUrl: 'templates/account.login.html',
         controller: 'LoginCtrl as login'
       }
     }
   });
-
-  $urlRouterProvider.otherwise('/tab/home');
 }

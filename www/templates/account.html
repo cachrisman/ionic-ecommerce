@@ -6,7 +6,7 @@
       <div class="list list-inset">
         <p>Logged in? {{account.logged_in ? "true" : "false"}}</p>
         <p>Token? {{account.token}}</p>
-        <a ng-hide="account.logged_in" class="button button-block button-positive" nav-transition="ios" href="#/tab/login">Login</a>
+        <a ng-hide="account.logged_in" class="button button-block button-positive" nav-transition="ios" ui-sref="login">Login</a>
         <a ng-show="account.logged_in" class="button button-block button-positive" nav-transition="ios" ng-click="account.logout()">Logout</a>
       </div>
     </form>

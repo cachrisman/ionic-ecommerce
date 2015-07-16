@@ -1,23 +1,41 @@
 <ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
   <!-- Home Tab -->
-  <ion-tab title="Home" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/tab/home">
-    <ion-nav-view name="tab-home"></ion-nav-view>
+  <ion-tab
+    title="Home"
+    icon-off="ion-ios-home-outline"
+    icon-on="ion-ios-home"
+    ui-sref="home">
+    <ion-nav-view name="home"></ion-nav-view>
   </ion-tab>
 
   <!-- Products Tab -->
-  <ion-tab title="Products" icon-off="ion-ios-pricetags-outline" icon-on="ion-ios-pricetags" href="#/tab/products">
-    <ion-nav-view name="tab-products"></ion-nav-view>
+  <ion-tab
+    title="Products"
+    icon-off="ion-ios-pricetags-outline"
+    icon-on="ion-ios-pricetags"
+    ui-sref="products">
+    <ion-nav-view name="products"></ion-nav-view>
   </ion-tab>
 
   <!-- Cart Tab -->
-  <ion-tab title="Cart" icon-off="ion-ios-cart-outline" icon-on="ion-ios-cart" href="#/tab/cart">
-    <ion-nav-view name="tab-cart"></ion-nav-view>
+  <ion-tab
+    title="Cart"
+    icon-off="ion-ios-cart-outline"
+    icon-on="ion-ios-cart"
+    badge="tabs.count"
+    badge-style="badge-balanced"
+    ui-sref="cart">
+    <ion-nav-view name="cart"></ion-nav-view>
   </ion-tab>
 
   <!-- Account Tab -->
-  <ion-tab title="Account" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/account">
-    <ion-nav-view name="tab-account"></ion-nav-view>
+  <ion-tab
+    title="Account"
+    icon-off="ion-ios-gear-outline"
+    icon-on="ion-ios-gear"
+    ui-sref="account">
+    <ion-nav-view name="account"></ion-nav-view>
   </ion-tab>
 
 </ion-tabs>
