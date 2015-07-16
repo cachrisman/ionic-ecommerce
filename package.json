@@ -30,7 +30,8 @@
     "com.ionic.keyboard"
   ],
   "cordovaPlatforms": [
-    "ios"
+    "ios",
+    "android"
   ],
   "bugs": {
     "url": "https://github.com/cachrisman/ionic-ecommerce/issues"
