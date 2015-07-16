@@ -54,7 +54,7 @@ function ProductsCtrl(   $state,   $ionicLoading,   $ionicPopup,   AuthService, 
 ProductDetailCtrl.$inject = ['$stateParams', '$state', '$ionicLoading', '$ionicPopup' ,'CONFIG', 'AuthService', 'ProductService', 'CartService', ];
 function ProductDetailCtrl(   $stateParams,   $state,   $ionicLoading,   $ionicPopup,   CONFIG,   AuthService,   ProductService,   CartService) {
   var vm = this;
-  var id = $stateParams.productId;
+  vm.addedToCart = false;
   var slug = $stateParams.slug;
   vm.addToCart = addToCart;
 
@@ -88,6 +88,7 @@ function ProductDetailCtrl(   $stateParams,   $state,   $ionicLoading,   $ionicP
 
   function addToCart(product) {
     CartService.add(product);
+    vm.addedToCart = true;
   }
 }
 
