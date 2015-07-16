@@ -22,7 +22,6 @@ function Configurator($httpProvider, $stateProvider, $urlRouterProvider) {
 
   $httpProvider.defaults.withCredentials = true;
   $httpProvider.defaults.headers.common["X-CSRF-Token"] = $("meta[name=csrf-token]").attr("content");
-  $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
 
   $urlRouterProvider.otherwise('/');
 
