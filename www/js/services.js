@@ -1,25 +1,26 @@
 angular.module('ionic-ecommerce.services', [])
 .service('AuthService', AuthService)
 .factory('ProductService', ProductService)
-.factory('CartService', CartService);
+.factory('CartService', CartService)
+.factory('LocalStorage', LocalStorage);
 
 // Auth Service
-AuthService.$inject = ['$q', '$http', 'CONFIG'];
-function AuthService($q, $http, CONFIG) {
+AuthService.$inject = ['$q', '$http', 'LocalStorage', 'CONFIG'];
+function AuthService($q, $http, LocalStorage, CONFIG) {
   var localStorage_token_key = CONFIG.localStorage_token_key;
   var token_header = CONFIG.token_header;
   var isAuthenticated = false;
   var authToken;
 
   function loadUserCredentials() {
-    var token = window.localStorage.getItem(localStorage_token_key);
+    var token = LocalStorage.get(localStorage_token_key);
     if (token) {
       useCredentials(token);
     }
   }
 
   function storeUserCredentials(token) {
-    window.localStorage.setItem(localStorage_token_key, token);
+    LocalStorage.set(localStorage_token_key, token);
     useCredentials(token);
   }
 
@@ -35,7 +36,7 @@ function AuthService($q, $http, CONFIG) {
     authToken = undefined;
     isAuthenticated = false;
     $http.defaults.headers.common[token_header] = undefined;
-    window.localStorage.removeItem(localStorage_token_key);
+    LocalStorage.remove(localStorage_token_key);
   }
 
   var login = function(email, password) {
@@ -153,4 +154,25 @@ function CartService($http, $q, ProductService) {
   }
 
   return service;
+}
+
+LocalStorage.$inject = ['$window'];
+function LocalStorage($window) {
+  return {
+    set: function(key, value) {
+      $window.localStorage[key] = value;
+    },
+    get: function(key, defaultValue) {
+      return $window.localStorage[key] || defaultValue;
+    },
+    remove: function(key) {
+      $window.localStorage.removeItem(key);
+    },
+    setObject: function(key, value) {
+      $window.localStorage[key] = JSON.stringify(value);
+    },
+    getObject: function(key) {
+      return JSON.parse($window.localStorage[key] || '{}');
+    }
+  };
 }
