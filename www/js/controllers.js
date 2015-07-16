@@ -92,8 +92,8 @@ function ProductDetailCtrl(   $stateParams,   $state,   $ionicLoading,   $ionicP
 }
 
 // Cart Controller
-CartCtrl.$inject = ['$scope', 'CartService', 'CONFIG'];
-function CartCtrl(   $scope,   CartService,   CONFIG) {
+CartCtrl.$inject = ['$scope', '$state', 'CartService', 'CONFIG'];
+function CartCtrl(   $scope,   $state,   CartService,   CONFIG) {
   var vm = this;
   vm.remove = remove;
 
@@ -107,6 +107,7 @@ function CartCtrl(   $scope,   CartService,   CONFIG) {
 
   function remove(product) {
     CartService.remove(product);
+    $state.reload();
   }
 }
 
