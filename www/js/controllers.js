@@ -94,7 +94,7 @@ function AccountCtrl(   $scope,   $state,   AuthService) {
     vm.user = null;
     vm.token = null;
     vm.logged_in = AuthService.isAuthenticated();
-    $state.reload('tab.account');
+    $state.reload('account');
   }
 }
 
@@ -109,7 +109,7 @@ function LoginCtrl(   $state,   $ionicLoading,   $ionicPopup,   AuthService) {
     AuthService.login(user.email, user.password)
       .success(function(data) {
         console.log("successful login; token: " + data.token);
-        $state.go('tab.account', {}, {reload: true});
+        $state.go('account', {}, {reload: true});
       })
       .error(function(data) {
         console.log("login failed", data.error);
