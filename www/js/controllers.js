@@ -77,7 +77,6 @@ function ProductDetailCtrl(   $stateParams,   $state,   $ionicLoading,   $ionicP
       },
       function(rejection) {
         $ionicLoading.hide();
-        console.log("ProductDetailCtrl Products.get error: " + rejection.error);
         var popup = $ionicPopup.alert({
           title: 'Error!',
           template: rejection.error

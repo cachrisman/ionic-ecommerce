@@ -17,6 +17,6 @@ angular.module('ionic-ecommerce')
   image_root: "https://ionic-ecommerce.herokuapp.com",
   localStorage_token_key: "ionic-ecommerce-api-key-heroku",
 
-
+  timeout: 10, // how many seconds before remote http requests should be considered timed out?
   token_header: "X-Spree-Token"
 });

@@ -85,29 +85,45 @@ function ProductService($http, $q, AuthService, CONFIG) {
   service.get = get;
 
   function all() {
-    var deferred = $q.defer();
-    $http
-      .get(service.endpoint, { cache: true })
-      .success(function(response) {
-        deferred.resolve(response);
-      })
-      .error(function(rejection) {
-        deferred.reject(rejection);
-      });
-    return deferred.promise;
+    return httpRequestHandler(service.endpoint);
   }
 
   function get(slug) {
-    var deferred = $q.defer();
-    $http
-      .get(service.endpoint + "/" + id, { cache: true })
-      .success(function(response) {
-        deferred.resolve(response);
-      })
-      .error(function(rejection) {
-        deferred.reject(rejection);
+    return httpRequestHandler(service.endpoint + "/" + slug);
+  }
+
+  function httpRequestHandler(url) {
+    var timedOut = false,
+        timeout = $q.defer(),
+        result = $q.defer(),
+        httpRequest;
+
+    setTimeout(function () {
+      timedOut = true;
+      timeout.resolve();
+    }, (1000 * CONFIG.timeout));
+
+    httpRequest = $http({
+      method: 'get',
+      url: url,
+      cache: true,
+      timeout: timeout.promise
+    });
+
+    httpRequest.success(function(response) {
+        result.resolve(response);
       });
-    return deferred.promise;
+
+    httpRequest.error(function(rejection) {
+      if (timedOut) {
+        result.reject({
+          error: 'Request took longer than ' + CONFIG.timeout + ' seconds.'
+        });
+      } else {
+        result.reject(rejection);
+      }
+    });
+    return result.promise;
   }
   return service;
 }
