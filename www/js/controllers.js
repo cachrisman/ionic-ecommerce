@@ -9,7 +9,7 @@ angular.module('ionic-ecommerce.controllers', [])
 
 // Tab Controller
 TabCtrl.$inject = ['$scope', 'CartService'];
-function TabCtrl($scope, CartService) {
+function TabCtrl(   $scope,   CartService) {
   var vm = this;
   vm.count = CartService.count();
 
@@ -23,8 +23,8 @@ HomeCtrl.$inject = [];
 function HomeCtrl() {}
 
 //Products Controller
-ProductsCtrl.$inject = ['$scope', '$ionicLoading', 'ProductService'];
-function ProductsCtrl($scope, $ionicLoading, ProductService) {
+ProductsCtrl.$inject = ['$state', '$ionicLoading', '$ionicPopup', 'AuthService', 'ProductService', 'CONFIG'];
+function ProductsCtrl(   $state,   $ionicLoading,   $ionicPopup,   AuthService,   ProductService,   CONFIG) {
   var vm = this;
   $ionicLoading.show();
   ProductService.all()
@@ -38,8 +38,8 @@ function ProductsCtrl($scope, $ionicLoading, ProductService) {
 }
 
 // Product Detail Controller
-ProductDetailCtrl.$inject = ['$scope', '$stateParams', '$ionicLoading', 'ProductService', 'CartService'];
-function ProductDetailCtrl($scope, $stateParams, $ionicLoading, ProductService, CartService) {
+ProductDetailCtrl.$inject = ['$stateParams', '$state', '$ionicLoading', '$ionicPopup' ,'CONFIG', 'AuthService', 'ProductService', 'CartService', ];
+function ProductDetailCtrl(   $stateParams,   $state,   $ionicLoading,   $ionicPopup,   CONFIG,   AuthService,   ProductService,   CartService) {
   var vm = this;
   var id = $stateParams.productId;
   var slug = $stateParams.slug;
@@ -66,8 +66,8 @@ function ProductDetailCtrl($scope, $stateParams, $ionicLoading, ProductService, 
 }
 
 // Cart Controller
-CartCtrl.$inject = ['$scope', '$stateParams', 'CartService'];
-function CartCtrl($scope, $stateParams, CartService) {
+CartCtrl.$inject = ['$scope', 'CartService', 'CONFIG'];
+function CartCtrl(   $scope,   CartService,   CONFIG) {
   var vm = this;
   vm.products = CartService.products;
   vm.remove = remove;
@@ -80,7 +80,7 @@ function CartCtrl($scope, $stateParams, CartService) {
 
 // Account Controller
 AccountCtrl.$inject = ['$scope', '$state', 'AuthService'];
-function AccountCtrl($scope, $state, AuthService) {
+function AccountCtrl(   $scope,   $state,   AuthService) {
   var vm = this;
   vm.logout = logout;
 
@@ -99,8 +99,8 @@ function AccountCtrl($scope, $state, AuthService) {
 }
 
 // Login Controller
-LoginCtrl.$inject = ['$scope', '$state', '$ionicPopup', 'AuthService'];
-function LoginCtrl($scope, $state, $ionicPopup, AuthService) {
+LoginCtrl.$inject = ['$state', '$ionicLoading', '$ionicPopup', 'AuthService'];
+function LoginCtrl(   $state,   $ionicLoading,   $ionicPopup,   AuthService) {
   var vm = this;
   vm.go = go;
 
