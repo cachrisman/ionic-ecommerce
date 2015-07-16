@@ -1,10 +1,22 @@
 angular.module('ionic-ecommerce.controllers', [])
+.controller('TabCtrl', TabCtrl)
 .controller('HomeCtrl', HomeCtrl)
 .controller('ProductsCtrl', ProductsCtrl)
 .controller('ProductDetailCtrl', ProductDetailCtrl)
 .controller('CartCtrl', CartCtrl)
 .controller('AccountCtrl', AccountCtrl)
 .controller('LoginCtrl', LoginCtrl);
+
+// Tab Controller
+TabCtrl.$inject = ['$scope', 'CartService'];
+function TabCtrl($scope, CartService) {
+  var vm = this;
+  vm.count = CartService.count();
+
+  $scope.$watch(function(){ return CartService.count();}, function(current, original) {
+    vm.count = current;
+  });
+}
 
 // Home Controller
 HomeCtrl.$inject = [];

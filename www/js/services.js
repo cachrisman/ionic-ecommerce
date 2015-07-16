@@ -116,20 +116,32 @@ function ProductService($http, $q, AuthService, CONFIG) {
 CartService.$inject = ['$http', '$q', 'ProductService'];
 function CartService($http, $q, ProductService) {
   var service = this;
-  service.products = [];
+  service.cart = [];
   service.count = 0;
   service.add = add;
   service.remove = remove;
+  service.count = count;
+  service.products = products;
 
   function add(product) {
-    // console.log("add product: ", product);
-    service.products.push(product);
-    service.count = service.products.length;
-    console.log(service.products);
+    service.cart.push(product);
   }
 
   function remove(product) {
     console.log("remove product: ", product);
+    service.cart = service.cart.filter(function (el) {
+                        return el !== product;
+                       });
+    $state.reload();
+    console.log("service.cart: ", service.cart);
+  }
+
+  function count() {
+    return service.cart.length;
+  }
+
+  function products() {
+    return service.cart;
   }
 
   return service;
