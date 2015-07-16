@@ -26,15 +26,28 @@ function HomeCtrl() {}
 ProductsCtrl.$inject = ['$state', '$ionicLoading', '$ionicPopup', 'AuthService', 'ProductService', 'CONFIG'];
 function ProductsCtrl(   $state,   $ionicLoading,   $ionicPopup,   AuthService,   ProductService,   CONFIG) {
   var vm = this;
-  $ionicLoading.show();
-  ProductService.all()
-  .then(function(response) {
-      vm.all = response.products;
-      $ionicLoading.hide();
-    },
-    function(rejection) {
-      console.log("ProductsCtrl Products.all error: " + rejection.error);
+
+  if (!AuthService.isAuthenticated()) {
+    var popup = $ionicPopup.alert({
+      title: 'Not Authenticated!',
+      template: 'Please login in first'
     });
+    popup.then(function(){$state.go('login');});
+  } else {
+    $ionicLoading.show();
+    ProductService.all()
+    .then(function(response) {
+        vm.all = response.products;
+        for (var key in vm.all) {
+          var product = vm.all[key];
+          product.image = CONFIG.image_root + product.master.images[0].mini_url;
+        }
+        $ionicLoading.hide();
+      },
+      function(rejection) {
+        console.log("ProductsCtrl Products.all error: " + rejection.error);
+      });
+  }
 }
 
 // Product Detail Controller
@@ -45,20 +58,33 @@ function ProductDetailCtrl(   $stateParams,   $state,   $ionicLoading,   $ionicP
   var slug = $stateParams.slug;
   vm.addToCart = addToCart;
 
-  $ionicLoading.show();
-  ProductService.get(id)
-  .then(function(response) {
-      vm.name = response.name;
-      vm.price = response.price;
-      vm.description = response.description;
-      vm.image = response.master.images[0].product_url;
-      vm.product = response;
-      $ionicLoading.hide();
-    },
-    function(rejection) {
-      console.log("ProductDetailCtrl Products.get error: " + rejection.error);
+  if (!AuthService.isAuthenticated()) {
+    var popup = $ionicPopup.alert({
+      title: 'Not Authenticated!',
+      template: 'Please login in first'
     });
+    popup.then(function(){$state.go('login');});
+  } else {
+    $ionicLoading.show();
     ProductService.get(slug)
+    .then(function(response) {
+        vm.name = response.name;
+        vm.price = response.price;
+        vm.description = response.description;
+        vm.image = CONFIG.image_root + response.master.images[0].product_url;
+        vm.product = response;
+        $ionicLoading.hide();
+      },
+      function(rejection) {
+        $ionicLoading.hide();
+        console.log("ProductDetailCtrl Products.get error: " + rejection.error);
+        var popup = $ionicPopup.alert({
+          title: 'Error!',
+          template: rejection.error
+        });
+        popup.then(function(){$state.go('products');});
+      });
+  }
 
   function addToCart(product) {
     CartService.add(product);
@@ -105,14 +131,17 @@ function LoginCtrl(   $state,   $ionicLoading,   $ionicPopup,   AuthService) {
   vm.go = go;
 
   function go(user) {
+    $ionicLoading.show();
     vm.user = null;
     AuthService.login(user.email, user.password)
       .success(function(data) {
         console.log("successful login; token: " + data.token);
         $state.go('account', {}, {reload: true});
+        $ionicLoading.hide();
       })
       .error(function(data) {
         console.log("login failed", data.error);
+        $ionicLoading.hide();
         var alertPopup = $ionicPopup.alert({
           title: 'Login failed!',
           template: data.error
