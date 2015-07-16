@@ -4,5 +4,8 @@
     <h2>{{product.name}}</h2>
     <h3>{{product.price}}</h3>
     <p>{{product.description}}</p>
+    <button class="button button-positive" ng-hide="product.addedToCart" ng-click="product.addToCart(product.product)">Add To Cart</button>
+    <button class="button button-balanced" ng-show="product.addedToCart"><i class="icon ion-checkmark-round"></i>Added To Cart</button>
+    <!-- <p>{{product}}</p> -->
   </ion-content>
 </ion-view>

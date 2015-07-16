@@ -97,7 +97,7 @@ function ProductService($http, $q, AuthService, CONFIG) {
     return deferred.promise;
   }
 
-  function get(id) {
+  function get(slug) {
     var deferred = $q.defer();
     $http
       .get(service.endpoint + "/" + id, { cache: true })

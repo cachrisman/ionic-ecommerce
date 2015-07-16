@@ -5,8 +5,10 @@
         class="item-remove-animate item-avatar item-icon-right"
         ng-repeat="product in products.all"
         type="item-text-wrap"
+        ui-sref="products-detail({slug: product.slug})">
         <img ng-src="{{product.image}}">
         <h2>{{product.name}}</h2>
+        {{product.slug}}
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>

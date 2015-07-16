@@ -57,8 +57,8 @@ function Configurator($httpProvider, $stateProvider, $urlRouterProvider) {
     }
   })
 
-  .state('tab.product-detail', {
-    url: '/products/:productId',
+  .state('products-detail', {
+    url: '/products/:slug',
     parent: 'app',
     views: {
       'products': {

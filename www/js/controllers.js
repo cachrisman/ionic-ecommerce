@@ -30,6 +30,7 @@ ProductDetailCtrl.$inject = ['$scope', '$stateParams', '$ionicLoading', 'Product
 function ProductDetailCtrl($scope, $stateParams, $ionicLoading, ProductService, CartService) {
   var vm = this;
   var id = $stateParams.productId;
+  var slug = $stateParams.slug;
   vm.addToCart = addToCart;
 
   $ionicLoading.show();
@@ -45,6 +46,7 @@ function ProductDetailCtrl($scope, $stateParams, $ionicLoading, ProductService, 
     function(rejection) {
       console.log("ProductDetailCtrl Products.get error: " + rejection.error);
     });
+    ProductService.get(slug)
 
   function addToCart(product) {
     CartService.add(product);
