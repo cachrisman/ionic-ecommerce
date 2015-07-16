@@ -11,9 +11,9 @@ angular.module('ionic-ecommerce.controllers', [])
 TabCtrl.$inject = ['$scope', 'CartService'];
 function TabCtrl(   $scope,   CartService) {
   var vm = this;
-  vm.count = CartService.count();
+  vm.count = CartService.getCount();
 
-  $scope.$watch(function(){ return CartService.count();}, function(current, original) {
+  $scope.$watch(function(){ return CartService.getCount();}, function(current, original) {
     vm.count = current;
   });
 }
@@ -98,7 +98,8 @@ function CartCtrl(   $scope,   $state,   CartService,   CONFIG) {
   vm.remove = remove;
 
   $scope.$on('$ionicView.enter', function(e) {
-    vm.products = CartService.products();
+    vm.products = CartService.products;
+    vm.total = CartService.total;
     for (var key in vm.products) {
       var product = vm.products[key];
       product.image = CONFIG.image_root + product.master.images[0].mini_url;
@@ -107,7 +108,12 @@ function CartCtrl(   $scope,   $state,   CartService,   CONFIG) {
 
   function remove(product) {
     CartService.remove(product);
+    vm.total = CartService.total;
     $state.reload();
+  }
+
+  function checkout(total) {
+
   }
 }
 

@@ -18,6 +18,19 @@ $dark:                            #444 !default;
 .cart-item-text {
   padding-left:20px;
 }
+
+.bar-footer.total{
+  height: 100px;
+}
+
+.total.number {
+  float:right;
+  padding: 0 30px 10px 0;
+}
+
+.button.checkout {
+  float: right;
+}
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 

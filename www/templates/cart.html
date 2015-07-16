@@ -12,6 +12,19 @@
         </ion-option-button>
       </ion-item>
     </ion-list>
-    {{data.count}}
   </ion-content>
+  <ion-footer-bar ng-hide="cart.products.length === 0" align-title="left" class="bar-dark total">
+    <div class="row">
+      <div class="col"></div>
+      <div class="col">
+        <h1 class="title">Total</h1>
+      </div>
+      <div class="col">
+        <span class="total number">{{cart.total | currency}}</span>
+        <div class="buttons" ng-click="doSomething()">
+          <button class="button checkout">Checkout</button>
+        </div>
+      </div>
+    </div>
+  </ion-footer-bar>
 </ion-view>
