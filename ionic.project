@@ -1,4 +1,12 @@
 {
   "name": "ionic-ecommerce",
-  "app_id": "dc36c188"
+  "app_id": "dc36c188",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }
