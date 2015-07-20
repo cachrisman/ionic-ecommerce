@@ -18,5 +18,48 @@ angular.module('ionic-ecommerce')
   localStorage_token_key: "ionic-ecommerce-api-key-heroku",
 
   timeout: 10, // how many seconds before remote http requests should be considered timed out?
-  token_header: "X-Spree-Token"
+  token_header: "X-Spree-Token",
+  tabs: {
+    home: "Home",
+    products: "Products",
+    cart: "Cart",
+    account: "Account",
+  },
+  home: {
+    title: "Home",
+    welcome: "Welcome to Ionic Ecommerce",
+    featured_products: "Featured Products",
+    add_to_cart: "Add to Cart",
+    added_to_cart: "Product added!",
+    view_all_products: "View All Products!",
+  },
+  products: {
+    title: "Products",
+  },
+  product: {
+    title: "Product Detail",
+    add_to_cart: "Add to Cart",
+    added_to_cart: "Product added!!",
+  },
+  cart: {
+    title: "Product Detail",
+    empty_cart: "Your Cart is Empty!",
+    remove_from_cart: "Remove",
+    total: "Total",
+    checkout: "Checkout",
+  },
+  account: {
+    title: "Account",
+    logged_in: "Logged In?",
+    token: "Token:",
+    login: "Login",
+    logout: "logout",
+  },
+  login: {
+    title: "Login",
+    email: "Email",
+    password: "Password",
+    login_botton_text: "Login",
+  }
+
 });

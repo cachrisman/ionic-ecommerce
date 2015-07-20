@@ -1,4 +1,4 @@
-<ion-view view-title="Cart">
+<ion-view view-title="{{cart.messages.title}}">
   <ion-content>
     <ion-list>
       <ion-item class="item item-avatar item-remove-animate item-icon-left" ng-repeat="product in cart.products" type="item-text-wrap">
@@ -8,7 +8,7 @@
 
 
         <ion-option-button class="button-assertive" ng-click="cart.remove(product)">
-          Delete
+          {{cart.messages.remove_from_cart}}
         </ion-option-button>
       </ion-item>
     </ion-list>
@@ -17,12 +17,12 @@
     <div class="row">
       <div class="col"></div>
       <div class="col">
-        <h1 class="title">Total</h1>
+        <h4 class="total">{{cart.messages.total}}</h4>
       </div>
       <div class="col">
         <span class="total number">{{cart.total | currency}}</span>
         <div class="buttons" ng-click="doSomething()">
-          <button class="button checkout">Checkout</button>
+          <button class="buttons-stable button checkout">{{cart.messages.checkout}}</button>
         </div>
       </div>
     </div>
