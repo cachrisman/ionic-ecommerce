@@ -1,0 +1,120 @@
+
+<!doctype html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title ng-bind="title">Ionic Ecommerce Frontend Demo</title>
+    <style>
+      body {
+        background-color: #EFF1F5;
+        font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+        padding: 0;
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+      preview {
+        display: block;
+        max-width: 855px;
+        margin: 0 auto 0 auto;
+        overflow: auto;
+      }
+      .login-info {
+        text-align: center;
+        color: #6F7582;
+        margin-top:5px;
+      }
+      h2 {
+        color: #fff;
+        font-weight: 200;
+        letter-spacing: 1px;
+        margin: 8px;
+      }
+      h2 a {
+        font-size: 18px;
+        color: #6F7582;
+        text-decoration: none;
+      }
+      .phone {
+        float: left;
+        margin: 0 20px 0 20px;
+      }
+      .frame {
+        border: none;
+        border-radius: 3px;
+        box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3);
+      }
+      #iphone-frame {
+        top: 109px;
+        left: 25px;
+        width: 375px;
+        height: 667px;
+      }
+      #android-frame {
+        top: 88px;
+        left: 24px;
+        width: 375px;
+        height: 667px;
+      }
+      #iphone {
+      }
+      #android {
+      }
+      footer {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        padding: 8px;
+      }
+    </style>
+
+    <!-- quick and dirty templating, don't touch this -->
+    <script>
+      var BOOTSTRAP = {"appName":"ionic-ecommerce"};
+    </script>
+
+    <script src="lib/angular/angular.min.js"></script>
+    <script>
+      angular.module('app', [])
+      .directive('preview', function() {
+        return {
+          restrict: 'E',
+          scope: true,
+          link: function($scope, $element, $attr) {
+            $scope.screenSizes = [
+              { label: 'iPhone 5 (320x568)', size: '320x568' }
+            ];
+            $scope.screenSize = $scope.screenSizes[0];
+          }
+        }
+      })
+      .run(['$rootScope', function($rootScope) {
+        $rootScope.appName = BOOTSTRAP && BOOTSTRAP.appName || null;
+        $rootScope.title = $rootScope.appName && $rootScope.appName + ' - Ionic App' || 'Ionic App';
+      }]);
+    </script>
+
+  </head>
+  <body>
+  <div class="login-info">
+    <span>Demo Login: demo@demo.com</span> |
+    <span>Password:   demodemo</span>
+  </div>
+    <preview>
+      <div class="phone">
+        <div id="iphone">
+          <h2><a href="index.html?ionicplatform=ios" target="_blank">iOS</a></h2>
+          <iframe id="iphone-frame" src="index.html?ionicplatform=ios" class="frame"></iframe>
+        </div>
+      </div>
+      <div class="phone">
+        <div id="android">
+          <h2><a href="index.html?ionicplatform=android" target="_blank">Android</a></h2>
+          <iframe id="android-frame" src="index.html?ionicplatform=android" class="frame"></iframe>
+        </div>
+      </div>
+    </preview>
+    <footer>
+      &copy; Charlie Chrisman
+    </footer>
+</body>
+</html>
