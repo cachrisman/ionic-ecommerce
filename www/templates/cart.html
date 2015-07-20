@@ -12,14 +12,15 @@
       </ion-item>
     </ion-list>
   </ion-content>
-  <ion-footer-bar ng-hide="cart.products.length === 0" align-title="left" class="bar-dark total">
+  <ion-footer-bar ng-hide="cart.products.length === 0" align-title="center" class="bar-dark total">
     <div class="row">
-      <div class="col"></div>
       <div class="col">
         <h4 class="total">{{cart.messages.total}}</h4>
       </div>
       <div class="col">
-        <span class="total number">{{cart.total | currency}}</span>
+        <h4 class="total number">{{cart.total | currency}}</h4>
+      </div>
+      <div class="col">
         <div class="buttons" ng-click="doSomething()">
           <button class="buttons-stable button checkout">{{cart.messages.checkout}}</button>
         </div>

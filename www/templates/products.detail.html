@@ -1,11 +1,12 @@
-  <ion-content class="padding">
 <ion-view view-title="{{product.messages.title}}">
+  <ion-content class="padding product-detail">
     <img ng-src="{{product.image}}">
     <h2>{{product.name}}</h2>
     <h3>{{product.price | currency}}</h3>
     <p>{{product.description}}</p>
-    <!-- <p>{{product}}</p> -->
   </ion-content>
+  <ion-footer-bar class="bar bar-clear product-details" id="products-detail-footer">
     <button class="button button-block button-positive" ng-hide="product.addedToCart" ng-click="product.addToCart(product.product)">{{product.messages.add_to_cart}}</button>
     <button class="button button-block button-balanced" ng-show="product.addedToCart"><i class="icon ion-checkmark-round"></i>{{product.messages.added_to_cart}}</button>
+  </ion-footer-bar>
 </ion-view>
