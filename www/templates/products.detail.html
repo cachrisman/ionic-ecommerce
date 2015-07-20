@@ -2,7 +2,7 @@
 <ion-view view-title="{{product.messages.title}}">
     <img ng-src="{{product.image}}">
     <h2>{{product.name}}</h2>
-    <h3>{{product.price}}</h3>
+    <h3>{{product.price | currency}}</h3>
     <p>{{product.description}}</p>
     <!-- <p>{{product}}</p> -->
   </ion-content>

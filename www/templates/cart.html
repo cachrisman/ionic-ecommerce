@@ -5,9 +5,7 @@
       <ion-item class="item item-avatar item-remove-animate item-icon-left" ng-repeat="product in cart.products | orderBy: 'cart_product_id' track by product.cart_product_id" type="item-text-wrap">
         <img ng-src="{{product.image}}">
         <span class="cart-item-text">{{product.name}}</span>
-        <span class="item-note">{{product.price}}</span>
-
-
+        <span class="item-note">{{product.price | currency }}</span>
         <ion-option-button class="button-assertive" ng-click="cart.remove(product)">
           {{cart.messages.remove_from_cart}}
         </ion-option-button>
