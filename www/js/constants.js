@@ -53,13 +53,15 @@ angular.module('ionic-ecommerce')
     logged_in: "Logged In?",
     token: "Token:",
     login: "Login",
-    logout: "logout",
+    logout: "Logout",
   },
   login: {
     title: "Login",
     email: "Email",
+    email_placeholder: "Email",
     password: "Password",
-    login_botton_text: "Login",
+    password_placeholder: "Password",
+    login_button_text: "Login",
   }
 
 });

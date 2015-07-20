@@ -1,16 +1,16 @@
-<ion-view view-title="{{login.messages.title}}">
+<ion-view view-title="{{::login.messages.title}}">
   <ion-content>
     <form novalidate class="simple-form">
       <div class="list list-inset">
         <label class="item item-input">
-          <span class="input-label">{{login.messages.email}}</span>
-          <input type="text" ng-model="login.user.email" name="email" placeholder="Email Address">
+          <span class="input-label">{{::login.messages.email}}</span>
+          <input type="text" ng-model="login.user.email" name="email" placeholder="{{::login.messages.email_placeholder}}">
         </label>
         <label class="item item-input">
-          <span class="input-label">{{login.messages.password}}</span>
-          <input type="password" ng-model="login.user.password" name="password" placeholder="Password">
+          <span class="input-label">{{::login.messages.password}}</span>
+          <input type="password" ng-model="login.user.password" name="password" placeholder="{{::login.messages.password_placeholder}}">
         </label>
-        <input class="button button-block button-positive" type="submit" ng-click="login.go(login.user)" value="{{login.messages.login_button_text}}" />
+        <input class="button button-block button-positive" type="submit" ng-click="login.go(login.user)" value="{{::login.messages.login_button_text}}" />
       </div>
     </form>
   </ion-content>

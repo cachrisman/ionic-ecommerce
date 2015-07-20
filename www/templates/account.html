@@ -1,13 +1,13 @@
-<ion-view view-title="{{account.messages.title}}">
+<ion-view view-title="{{::account.messages.title}}">
   <ion-nav-buttons side="right">
   </ion-nav-buttons>
   <ion-content>
     <form novalidate class="simple-form">
       <div class="list list-inset">
-        <p>{{account.messages.logged_in}} {{account.logged_in ? "true" : "false"}}</p>
-        <p>{{account.messages.token}} {{account.token}}</p>
-        <a ng-hide="account.logged_in" class="button button-block button-positive" nav-transition="ios" ui-sref="login">{{account.messages.login}}</a>
-        <a ng-show="account.logged_in" class="button button-block button-positive" nav-transition="ios" ng-click="account.logout()">{{account.messages.logout}}</a>
+        <p>{{::account.messages.logged_in}} {{account.logged_in ? "true" : "false"}}</p>
+        <p>{{::account.messages.token}} {{account.token}}</p>
+        <a ng-hide="account.logged_in" class="button button-block button-positive" nav-transition="ios" ui-sref="login">{{::account.messages.login}}</a>
+        <a ng-show="account.logged_in" class="button button-block button-positive" nav-transition="ios" ng-click="account.logout()">{{::account.messages.logout}}</a>
       </div>
     </form>
   </ion-content>

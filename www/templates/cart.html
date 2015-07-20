@@ -1,13 +1,13 @@
-<ion-view view-title="{{cart.messages.title}}">
+<ion-view view-title="{{::cart.messages.title}}">
   <ion-content>
-    <h4 class="cart empty" ng-show="cart.products.length === 0">{{cart.messages.empty_cart}}</h4>
+    <h4 class="cart empty" ng-show="cart.products.length === 0">{{::cart.messages.empty_cart}}</h4>
     <ion-list>
       <ion-item class="item item-avatar item-remove-animate item-icon-left" ng-repeat="product in cart.products | orderBy: 'cart_product_id' track by product.cart_product_id" type="item-text-wrap">
         <img ng-src="{{product.image}}">
         <span class="cart-item-text">{{product.name}}</span>
         <span class="item-note">{{product.price | currency }}</span>
         <ion-option-button class="button-assertive" ng-click="cart.remove(product)">
-          {{cart.messages.remove_from_cart}}
+          {{::cart.messages.remove_from_cart}}
         </ion-option-button>
       </ion-item>
     </ion-list>
@@ -15,14 +15,14 @@
   <ion-footer-bar ng-hide="cart.products.length === 0" align-title="center" class="bar-dark total">
     <div class="row">
       <div class="col">
-        <h4 class="total">{{cart.messages.total}}</h4>
+        <h4 class="total">{{::cart.messages.total}}</h4>
       </div>
       <div class="col">
         <h4 class="total number">{{cart.total | currency}}</h4>
       </div>
       <div class="col">
         <div class="buttons" ng-click="doSomething()">
-          <button class="buttons-stable button checkout">{{cart.messages.checkout}}</button>
+          <button class="buttons-stable button checkout">{{::cart.messages.checkout}}</button>
         </div>
       </div>
     </div>
