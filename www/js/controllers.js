@@ -78,8 +78,8 @@ function ProductsCtrl(   $state,   $ionicLoading,   $ionicPopup,   AuthService, 
 }
 
 // Product Detail Controller
-ProductDetailCtrl.$inject = ['$stateParams', '$state', '$ionicLoading', '$ionicPopup' ,'CONFIG', 'AuthService', 'ProductService', 'CartService', ];
-function ProductDetailCtrl(   $stateParams,   $state,   $ionicLoading,   $ionicPopup,   CONFIG,   AuthService,   ProductService,   CartService) {
+ProductDetailCtrl.$inject = ['$stateParams', '$state', '$ionicLoading', '$ionicPopup', '$timeout', 'CONFIG', 'AuthService', 'ProductService', 'CartService', ];
+function ProductDetailCtrl(   $stateParams,   $state,   $ionicLoading,   $ionicPopup,   $timeout,CONFIG,   AuthService,   ProductService,   CartService) {
   var vm = this;
   vm.messages = CONFIG.product;
   vm.addedToCart = false;
@@ -116,6 +116,7 @@ function ProductDetailCtrl(   $stateParams,   $state,   $ionicLoading,   $ionicP
   function addToCart(product) {
     CartService.add(product);
     vm.addedToCart = true;
+    $timeout(function(){vm.addedToCart = false;}, 700);
   }
 }
 
@@ -194,7 +195,3 @@ function LoginCtrl(   $state,   $ionicLoading,   $ionicPopup,   AuthService,   C
       });
   }
 }
-
-
-
-
