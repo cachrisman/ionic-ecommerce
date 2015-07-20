@@ -1,31 +1,26 @@
 <ion-view view-title="{{home.messages.title}}">
   <ion-content class="padding">
-    <div class="list card">
-      <div class="item item-divider">Recent Updates</div>
-      <div class="item item-body">
-        <div>
-          {{name}}
-        </div>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Health</div>
-      <div class="item item-body">
-        <div>
-          You ate an apple today!
-        </div>
-      </div>
-    </div>
-    <div class="list card">
-      <div class="item item-divider">Upcoming</div>
-      <div class="item item-body">
-        <div>
-          You have <b>29</b> meetings on your calendar tomorrow.
-        </div>
     <h4>{{home.messages.welcome}}</h4>
+    <div class="list card featured">
       <div class="item item-divider">{{home.messages.featured_products}}</div>
+      <div class="item item-body featured">
+        <ion-slide-box does-continue="true" on-slide-changed="slideHasChanged($index)">
+          <ion-slide ng-repeat="product in home.featured | filter: {taxon_ids:14} |orderBy: 'name'" ui-sref="products-detail({slug: product.slug})">
+            <div class="item-text-wrap">
+              <div class="box featured row">
+                <div class="col">
+                  <img ng-src="{{product.home_image}}" class="featured">
+                </div>
+                <div class="col">
+                  <h3>{{product.name}}</h3>
+                  <h3>{{product.price | currency}}</h3>
                   <button class="button button-positive button-small" ng-hide="home.addedToCart" ng-click="home.addToCart(product, $event)">{{home.messages.add_to_cart}}</button>
                   <button class="button button-balanced button-small" ng-show="home.addedToCart"><i class="icon ion-checkmark-round"></i>{{home.messages.added_to_cart}}</button>
+                </div>
+              </div>
+            </div>
+          </ion-slide>
+        </ion-slide-box>
       </div>
     </div>
     <a class="button button-block button-positive home" ui-sref="products">{{home.messages.view_all_products}}</a>

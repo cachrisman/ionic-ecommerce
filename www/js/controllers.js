@@ -20,9 +20,33 @@ function TabCtrl(   $scope,   CartService,   CONFIG) {
 }
 
 // Home Controller
-HomeCtrl.$inject = [];
-function HomeCtrl() {}
+HomeCtrl.$inject = ['ProductService', 'CartService', 'CONFIG', '$ionicSlideBoxDelegate', '$timeout'];
+function HomeCtrl(   ProductService,   CartService,   CONFIG,   $ionicSlideBoxDelegate,   $timeout) {
+  var vm = this;
+  vm.addedToCart = false;
+  vm.addToCart = addToCart;
   vm.messages = CONFIG.home;
+
+  ProductService.all()
+    .then(function(response){
+      vm.featured = response.products;
+      for (var key in vm.featured) {
+        var product = vm.featured[key];
+        product.home_image = CONFIG.image_root + product.master.images[0].product_url;
+      }
+      $ionicSlideBoxDelegate.update();
+    },
+    function(rejection) {
+      console.log("HomeCtrl Products.all error: " + rejection.error);
+    });
+
+    function addToCart(product, $event) {
+      $event.stopPropagation();
+      CartService.add(product);
+      vm.addedToCart = true;
+      $timeout(function(){vm.addedToCart = false;}, 700);
+    }
+}
 
 //Products Controller
 ProductsCtrl.$inject = ['$state', '$ionicLoading', '$ionicPopup', 'AuthService', 'ProductService', 'CONFIG'];
