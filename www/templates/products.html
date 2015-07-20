@@ -3,7 +3,7 @@
     <ion-list>
       <ion-item
         class="item-remove-animate item-avatar item-icon-right"
-        ng-repeat="product in products.all"
+        ng-repeat="product in products.all | orderBy: 'name'"
         type="item-text-wrap"
         ui-sref="products-detail({slug: product.slug})">
         <img ng-src="{{product.image}}">
