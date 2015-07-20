@@ -134,14 +134,17 @@ CartService.$inject = ['$http', '$q', 'ProductService'];
 function CartService($http, $q, ProductService) {
   var service = this;
   service.products = [];
+  service.cart_product_id = 0;
   service.total = 0;
   service.add = add;
   service.remove = remove;
   service.getCount = getCount;
 
   function add(product) {
-    service.products.push(product);
-    service.total += parseFloat(product.price);
+    var newProduct = $.extend(true, {}, product);
+    newProduct.cart_product_id = ++service.cart_product_id;
+    service.products.push(newProduct);
+    service.total += parseFloat(newProduct.price);
   }
 
   function remove(product) {
