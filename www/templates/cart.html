@@ -1,5 +1,6 @@
 <ion-view view-title="{{cart.messages.title}}">
   <ion-content>
+    <h4 class="cart empty" ng-show="cart.products.length === 0">{{cart.messages.empty_cart}}</h4>
     <ion-list>
       <ion-item class="item item-avatar item-remove-animate item-icon-left" ng-repeat="product in cart.products | orderBy: 'cart_product_id' track by product.cart_product_id" type="item-text-wrap">
         <img ng-src="{{product.image}}">
