@@ -14,7 +14,9 @@ angular.module('ionic-ecommerce')
 
   api_login_uri: "https://ionic-ecommerce.herokuapp.com/api/login.json",
   api_products_uri: "https://ionic-ecommerce.herokuapp.com/api/products",
-  image_root: "https://ionic-ecommerce.herokuapp.com",
+
+  // set to server address (ie http://www.servername.com) if image paths are local, else leave blank
+  image_root: "",
   localStorage_token_key: "ionic-ecommerce-api-key-heroku",
 
   timeout: 10, // how many seconds before remote http requests should be considered timed out?

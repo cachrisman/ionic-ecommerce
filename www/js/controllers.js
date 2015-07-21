@@ -32,7 +32,7 @@ function HomeCtrl(   ProductService,   CartService,   CONFIG,   $ionicSlideBoxDe
       vm.featured = response.products;
       for (var key in vm.featured) {
         var product = vm.featured[key];
-        product.home_image = CONFIG.image_root + product.master.images[0].product_url;
+        product.home_image = CONFIG.image_root + product.master.images[0].small_url;
       }
       $ionicSlideBoxDelegate.update();
     },
