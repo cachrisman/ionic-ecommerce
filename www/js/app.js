@@ -2,8 +2,9 @@ angular.module('ionic-ecommerce', ['ionic', 'ionic-ecommerce.controllers', 'ioni
 .run(Runner)
 .config(Configurator);
 
-Runner.$inject = ['$ionicPlatform'];
-function Runner($ionicPlatform) {
+Runner.$inject = ['$ionicPlatform', '$rootScope'];
+function Runner($ionicPlatform, $rootScope) {
+  $rootScope.$on("$stateChangeError", console.log.bind(console));
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -49,7 +50,7 @@ function Configurator($httpProvider, $stateProvider, $urlRouterProvider) {
     url: '/products',
     parent: 'app',
     views: {
-      'products': {
+      'products-tab@app': {
         templateUrl: 'templates/products.html',
         controller: 'ProductsCtrl as products'
       }
@@ -60,7 +61,7 @@ function Configurator($httpProvider, $stateProvider, $urlRouterProvider) {
     url: '/products/:slug',
     parent: 'app',
     views: {
-      'products': {
+      'products-tab@app': {
         templateUrl: 'templates/products.detail.html',
         controller: 'ProductDetailCtrl as product'
       }
