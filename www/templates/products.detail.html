@@ -1,4 +1,9 @@
 <ion-view view-title="{{::product.messages.title}}">
+  <ion-nav-buttons side="primary">
+    <button class="button button-icon button-clear ion-chevron-left" ng-click="$ionicGoBack" nav-transition="left">
+      Back
+    </button>
+  </ion-nav-buttons>
   <ion-content class="padding product-detail">
     <img ng-src="{{product.image}}">
     <h2>{{product.name}}</h2>
