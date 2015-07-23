@@ -85,19 +85,21 @@ function ProductService($http, $q, AuthService, CONFIG) {
   service.all = all;
   service.get = get;
 
-  function all() {
-    return httpRequestHandler(service.endpoint);
+  function all(cache) {
+    return httpRequestHandler(service.endpoint, cache);
   }
 
-  function get(slug) {
-    return httpRequestHandler(service.endpoint + "/" + slug);
+  function get(slug, cache) {
+    return httpRequestHandler(service.endpoint + "/" + slug, cache);
   }
 
-  function httpRequestHandler(url) {
+  function httpRequestHandler(url, cache) {
     var timedOut = false,
         timeout = $q.defer(),
         result = $q.defer(),
         httpRequest;
+
+    cache = (typeof cache === 'undefined') ? true : cache;
 
     setTimeout(function () {
       timedOut = true;
@@ -107,7 +109,7 @@ function ProductService($http, $q, AuthService, CONFIG) {
     httpRequest = $http({
       method: 'get',
       url: url,
-      cache: true,
+      cache: cache,
       timeout: timeout.promise
     });
 

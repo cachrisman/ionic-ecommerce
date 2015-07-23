@@ -20,9 +20,12 @@ function TabCtrl(   $scope,   CartService,   CONFIG) {
 }
 
 // Home Controller
-HomeCtrl.$inject = ['ProductService', 'CartService', 'CONFIG', '$ionicSlideBoxDelegate', '$timeout'];
-function HomeCtrl(   ProductService,   CartService,   CONFIG,   $ionicSlideBoxDelegate,   $timeout) {
-  var vm = this;
+HomeCtrl.$inject = ['ProductService', 'CartService', 'CONFIG', '$scope', '$state', '$ionicPopup', '$ionicSlideBoxDelegate', '$timeout'];
+function HomeCtrl(   ProductService,   CartService,   CONFIG,   $scope,   $state,   $ionicPopup,   $ionicSlideBoxDelegate,   $timeout) {
+  var vm = this,
+      cacheLoaded = false;
+
+  vm.show_featured = false;
   vm.addedToCart = false;
   vm.addToCart = addToCart;
   vm.messages = CONFIG.home;
