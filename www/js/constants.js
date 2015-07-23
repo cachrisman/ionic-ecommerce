@@ -29,7 +29,7 @@ angular.module('ionic-ecommerce')
   },
   home: {
     title: "Home",
-    welcome: "Welcome to Ionic Ecommerce",
+    welcome: "Welcome to Ionic e-Commerce",
     featured_products: "Featured Products",
     add_to_cart: "Add to Cart",
     added_to_cart: "Product added!",

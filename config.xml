@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.ionicecommerce430416" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>ionic-ecommerce</name>
+<widget id="com.charliechrisman.ionic-ecommerce" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Ionic-ECommerce</name>
   <description/>
   <author email="charlie.chrisman@gmail.com" href="http://charliechrisman.com/">
       Charlie Chrisman
