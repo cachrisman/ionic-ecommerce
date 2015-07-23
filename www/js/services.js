@@ -111,19 +111,24 @@ function ProductService($http, $q, AuthService, CONFIG) {
       timeout: timeout.promise
     });
 
-    httpRequest.success(function(response) {
-        result.resolve(response);
-      });
-
-    httpRequest.error(function(rejection) {
-      if (timedOut) {
-        result.reject({
-          error: 'Request took longer than ' + CONFIG.timeout + ' seconds.'
-        });
-      } else {
-        result.reject(rejection);
-      }
+    httpRequest.success(function(response, status, headers, config) {
+      var data = {};
+      data.response = response;
+      data.status = status;
+      data.headers = headers;
+      data.config = config;
+      result.resolve(data);
     });
+
+    httpRequest.error(function(rejection, status, headers, config) {
+      var data = {};
+      data.status = status;
+      data.headers = headers;
+      data.config = config;
+      data.rejection = timedOut ? 'Request took longer than ' + CONFIG.timeout + ' seconds.' : rejection;
+      result.reject(data);
+    });
+
     return result.promise;
   }
   return service;
