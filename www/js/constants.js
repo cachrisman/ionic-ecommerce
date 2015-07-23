@@ -44,7 +44,7 @@ angular.module('ionic-ecommerce')
     added_to_cart: "Product added!!",
   },
   cart: {
-    title: "Product Detail",
+    title: "Cart",
     empty_cart: "Your Cart is Empty!",
     remove_from_cart: "Remove",
     total: "Total",
