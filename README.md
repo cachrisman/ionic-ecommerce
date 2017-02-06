@@ -27,6 +27,9 @@ git clone https://github.com/cachrisman/ionic-ecommerce.git
 cd ionic-ecommerce
 npm install --save
 bower install --save
+```
+Change the file `ionic-ecommerce/www/js/constants.js` to reflect your local environment
+```
 ionic serve -l
 ```
 
