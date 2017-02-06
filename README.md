@@ -12,7 +12,14 @@ The backend server is at (http://ionic-ecommerce.herokuapp.com) and its repo is 
 - Ionic
 
 ##Installation
-Backend
+### Dependencies
+You need to have the following items installed and working in order to use this project. Their installation is beyond the scope of this document.
+- Git
+- Ruby
+- Node/NPM
+
+###Backend
+Run the following commands to install the backend server:
 ```
 git clone https://github.com/cachrisman/ionic-ecommerce-server.git
 cd ionic-ecommerce-server
@@ -21,19 +28,21 @@ spree install -A
 rake db:migrate
 rails server
 ```
-Frontend
+###Frontend
+Run the following commands to install the frontend:
 ```
 git clone https://github.com/cachrisman/ionic-ecommerce.git
 cd ionic-ecommerce
 npm install --save
 bower install --save
 ```
-Change the file `ionic-ecommerce/www/js/constants.js` to reflect your local environment
+Change the file `ionic-ecommerce/www/js/constants.js` to reflect your local environment.
+
+Last, run the following command to show you a webpage simulating an iOS device running this app:
 ```
 ionic serve -l
 ```
-
-you can also emulate the app running on iOS if you have Xcode installed:
+Or you can also emulate the app running on iOS if you have Xcode installed:
 ```
 ionic emulate ios
 ```
